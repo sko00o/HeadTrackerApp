@@ -1,35 +1,74 @@
 {
-  "images" : [
+  "images": [
     {
-      "idiom" : "universal",
-      "platform" : "ios",
-      "size" : "1024x1024"
+      "filename": "icon_1024x1024.png",
+      "idiom": "universal",
+      "platform": "ios",
+      "size": "1024x1024"
     },
     {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "idiom" : "universal",
-      "platform" : "ios",
-      "size" : "1024x1024"
+      "filename": "icon_60x60.png",
+      "idiom": "universal",
+      "platform": "ios",
+      "size": "60x60"
     },
     {
-      "appearances" : [
+      "filename": "icon_120x120.png",
+      "idiom": "universal",
+      "platform": "ios",
+      "size": "120x120"
+    },
+    {
+      "filename": "icon_180x180.png",
+      "idiom": "universal",
+      "platform": "ios",
+      "size": "180x180"
+    },
+    {
+      "filename": "icon_40x40.png",
+      "idiom": "universal",
+      "platform": "ios",
+      "size": "40x40"
+    },
+    {
+      "filename": "icon_80x80.png",
+      "idiom": "universal",
+      "platform": "ios",
+      "size": "80x80"
+    },
+    {
+      "filename": "icon_20x20.png",
+      "idiom": "universal",
+      "platform": "ios",
+      "size": "20x20"
+    },
+    {
+      "appearances": [
         {
-          "appearance" : "luminosity",
-          "value" : "tinted"
+          "appearance": "luminosity",
+          "value": "dark"
         }
       ],
-      "idiom" : "universal",
-      "platform" : "ios",
-      "size" : "1024x1024"
+      "filename": "icon_1024x1024.png",
+      "idiom": "universal",
+      "platform": "ios",
+      "size": "1024x1024"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "tinted"
+        }
+      ],
+      "filename": "icon_1024x1024.png",
+      "idiom": "universal",
+      "platform": "ios",
+      "size": "1024x1024"
     }
   ],
-  "info" : {
-    "author" : "xcode",
-    "version" : 1
+  "info": {
+    "author": "xcode",
+    "version": 1
   }
 }
