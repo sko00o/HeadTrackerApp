@@ -26,6 +26,10 @@ struct MainMenuView: View {
                     NavigationLink(destination: ContentView()) {
                         MenuButton(title: "📊 头部追踪演示", subtitle: "查看头部方向数据")
                     }
+                    
+                    NavigationLink(destination: GameView()) {
+                        MenuButton(title: "🎮 头部控制游戏", subtitle: "用头部动作控制游戏角色")
+                    }
                 }
                 
                 Spacer()

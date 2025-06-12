@@ -9,8 +9,27 @@ import SwiftUI
 import CoreMotion
 import Combine
 
-// Game View
+// Game View - 管理游戏的入口和生命周期
 struct GameView: View {
+    @StateObject private var headphoneMotionManager = HeadphoneMotionManager()
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        GameViewBody(headphoneMotionManager: headphoneMotionManager, onBack: {
+            presentationMode.wrappedValue.dismiss()
+        })
+        .navigationBarHidden(true)
+        .onAppear {
+            headphoneMotionManager.start()
+        }
+        .onDisappear {
+            headphoneMotionManager.stop()
+        }
+    }
+}
+
+// Game View
+struct GameViewBody: View {
     @ObservedObject var headphoneMotionManager: HeadphoneMotionManager
     let onBack: () -> Void
     @StateObject private var gameManager = GameManager()

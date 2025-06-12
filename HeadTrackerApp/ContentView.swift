@@ -13,134 +13,115 @@ struct ContentView: View {
     @StateObject private var headphoneMotionManager = HeadphoneMotionManager()
     @State private var connectionAttempts = 0
     @State private var showDebugInfo = false
-    @State private var showGame = false
     
     var body: some View {
         ZStack {
             Color(UIColor.systemBackground)
                 .ignoresSafeArea()
             
-            if showGame {
-                GameView(headphoneMotionManager: headphoneMotionManager, onBack: {
-                    showGame = false
-                })
-            } else {
-                VStack(spacing: 15) {
-                    HStack {
-                        Text("AirPods Pro Head Tracking")
-                            .font(.title)
-                            .fontWeight(.bold)
+            VStack(spacing: 15) {
+                HStack {
+                    Text("AirPods Pro Head Tracking")
+                        .font(.title)
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
+                .padding(.top, 10)
+            
+                if headphoneMotionManager.isDeviceConnected {
+                    // Visual head tracker
+                    HeadVisualization(
+                        pitch: headphoneMotionManager.pitch,
+                        roll: headphoneMotionManager.roll,
+                        yaw: headphoneMotionManager.yaw
+                    )
+                    .frame(height: 180)
+                    .padding(.vertical, 10)
+                    
+                    // Numerical data
+                    VStack(alignment: .leading, spacing: 15) {
+                        Text("Head Orientation")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .center)
                         
-                        Spacer()
+                        Divider()
+                        
+                        OrientationRow(label: "Pitch", value: headphoneMotionManager.pitch, description: "Up/Down")
+                        OrientationRow(label: "Roll", value: headphoneMotionManager.roll, description: "Tilt Left/Right")
+                        OrientationRow(label: "Yaw", value: headphoneMotionManager.yaw, description: "Turn Left/Right")
+                    }
+                    .padding()
+                    .background(Color(UIColor.secondarySystemBackground))
+                    .cornerRadius(12)
+                    .shadow(radius: 1)
+                    .padding(.horizontal)
+                } else {
+                    Spacer()
+                    
+                    VStack(spacing: 25) {
+                        Image(systemName: "airpodspro")
+                            .font(.system(size: 60))
+                            .foregroundColor(.blue)
+                        
+                        Text("Waiting for AirPods Pro...")
+                            .font(.title3)
+                            .foregroundColor(.secondary)
                         
                         Button(action: {
-                            showGame = true
+                            connectionAttempts += 1
+                            headphoneMotionManager.restart()
                         }) {
-                            Text("🎮 游戏")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                                .background(Color.blue)
-                                .cornerRadius(20)
+                            Text("Retry Connection")
+                                .fontWeight(.semibold)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(Color.blue.opacity(0.2))
+                                .cornerRadius(8)
+                        }
+                        
+                        if showDebugInfo {
+                            Text("Connection Status: \(headphoneMotionManager.connectionStatus)")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.top, 10)
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity)
                         }
                     }
+                    .padding()
+                    .background(Color(UIColor.secondarySystemBackground))
+                    .cornerRadius(12)
+                    .shadow(radius: 1)
                     .padding(.horizontal)
-                    .padding(.top, 10)
+                    
+                    Spacer()
+                }
                 
-                    if headphoneMotionManager.isDeviceConnected {
-                        // Visual head tracker
-                        HeadVisualization(
-                            pitch: headphoneMotionManager.pitch,
-                            roll: headphoneMotionManager.roll,
-                            yaw: headphoneMotionManager.yaw
-                        )
-                        .frame(height: 180)
-                        .padding(.vertical, 10)
-                        
-                        // Numerical data
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text("Head Orientation")
-                                .font(.headline)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                            
-                            Divider()
-                            
-                            OrientationRow(label: "Pitch", value: headphoneMotionManager.pitch, description: "Up/Down")
-                            OrientationRow(label: "Roll", value: headphoneMotionManager.roll, description: "Tilt Left/Right")
-                            OrientationRow(label: "Yaw", value: headphoneMotionManager.yaw, description: "Turn Left/Right")
-                        }
-                        .padding()
-                        .background(Color(UIColor.secondarySystemBackground))
-                        .cornerRadius(12)
-                        .shadow(radius: 1)
-                        .padding(.horizontal)
-                    } else {
-                        Spacer()
-                        
-                        VStack(spacing: 25) {
-                            Image(systemName: "airpodspro")
-                                .font(.system(size: 60))
-                                .foregroundColor(.blue)
-                            
-                            Text("Waiting for AirPods Pro...")
-                                .font(.title3)
-                                .foregroundColor(.secondary)
-                            
-                            Button(action: {
-                                connectionAttempts += 1
-                                headphoneMotionManager.restart()
-                            }) {
-                                Text("Retry Connection")
-                                    .fontWeight(.semibold)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 10)
-                                    .background(Color.blue.opacity(0.2))
-                                    .cornerRadius(8)
-                            }
-                            
-                            if showDebugInfo {
-                                Text("Connection Status: \(headphoneMotionManager.connectionStatus)")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                    .padding(.top, 10)
-                                    .multilineTextAlignment(.center)
-                                    .frame(maxWidth: .infinity)
-                            }
-                        }
-                        .padding()
-                        .background(Color(UIColor.secondarySystemBackground))
-                        .cornerRadius(12)
-                        .shadow(radius: 1)
-                        .padding(.horizontal)
-                        
-                        Spacer()
+                Spacer()
+                
+                // Debug info footer
+                HStack {
+                    if showDebugInfo {
+                        Text("Attempts: \(connectionAttempts)")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                     }
                     
                     Spacer()
                     
-                    // Debug info footer
-                    HStack {
-                        if showDebugInfo {
-                            Text("Attempts: \(connectionAttempts)")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            showDebugInfo.toggle()
-                        }) {
-                            Image(systemName: showDebugInfo ? "info.circle.fill" : "info.circle")
-                                .foregroundColor(.gray)
-                        }
+                    Button(action: {
+                        showDebugInfo.toggle()
+                    }) {
+                        Image(systemName: showDebugInfo ? "info.circle.fill" : "info.circle")
+                            .foregroundColor(.gray)
                     }
-                    .padding(.horizontal)
-                    .padding(.bottom, 5)
                 }
-                .padding(.horizontal, 5)
+                .padding(.horizontal)
+                .padding(.bottom, 5)
             }
+            .padding(.horizontal, 5)
         }
         .onAppear {
             headphoneMotionManager.start()
