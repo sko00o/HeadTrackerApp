@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景渐变 -->
+    <defs>
+        <radialGradient id="bgGradient" cx="50%" cy="30%" r="80%">
+            <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#2E5BBA;stop-opacity:1" />
+        </radialGradient>
+
+        <linearGradient id="metalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#F5F7FA;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#C3CFE2;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#F5F7FA;stop-opacity:1" />
+        </linearGradient>
+
+        <linearGradient id="headbandGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#D1D1D1;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#E8E8E8;stop-opacity:1" />
+        </linearGradient>
+
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.2" />
+        </filter>
+    </defs>
+
+    <!-- 背景圆形 -->
+    <circle cx="512" cy="512" r="480" fill="url(#bgGradient)" filter="url(#shadow)" />
+
+    <!-- 主头带 -->
+    <path d="M220 360 Q220 220 512 220 Q804 220 804 360"
+        fill="none"
+        stroke="url(#headbandGradient)"
+        stroke-width="32"
+        stroke-linecap="round" />
+
+    <!-- 头带内层 -->
+    <path d="M240 350 Q240 240 512 240 Q784 240 784 350"
+        fill="none"
+        stroke="#F8F8F8"
+        stroke-width="16"
+        stroke-linecap="round" />
+    
+    <!-- 左侧连接臂 -->
+    <rect x="210" y="340" width="16" height="100" rx="8" fill="url(#metalGradient)"
+        filter="url(#shadow)" />
+
+    <!-- 右侧连接臂 -->
+    <rect x="798" y="340" width="16" height="100" rx="8" fill="url(#metalGradient)"
+        filter="url(#shadow)" />
+
+    <!-- 左侧耳罩外层 -->
+    <ellipse cx="280" cy="480" rx="140" ry="150" fill="url(#metalGradient)" filter="url(#shadow)" />
+    <ellipse cx="280" cy="480" rx="120" ry="130" fill="#2D3748" />
+    <ellipse cx="280" cy="480" rx="100" ry="110" fill="#4A5568" />
+    <ellipse cx="280" cy="480" rx="80" ry="90" fill="#718096" />
+
+    <!-- 右侧耳罩外层 -->
+    <ellipse cx="744" cy="480" rx="140" ry="150" fill="url(#metalGradient)" filter="url(#shadow)" />
+    <ellipse cx="744" cy="480" rx="120" ry="130" fill="#2D3748" />
+    <ellipse cx="744" cy="480" rx="100" ry="110" fill="#4A5568" />
+    <ellipse cx="744" cy="480" rx="80" ry="90" fill="#718096" />
+
+    <!-- 高光效果 -->
+    <ellipse cx="280" cy="440" rx="60" ry="30" fill="#FFF" opacity="0.3" />
+    <ellipse cx="744" cy="440" rx="60" ry="30" fill="#FFF" opacity="0.3" />
+    
+</svg> 

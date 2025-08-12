@@ -2,6 +2,13 @@ import SwiftUI
 import CoreMotion
 import Combine
 
+// Extension moved to file scope to avoid accessibility issues
+extension Comparable {
+    func clamped(to limits: ClosedRange<Self>) -> Self {
+        return min(max(self, limits.lowerBound), limits.upperBound)
+    }
+}
+
 struct ContentView: View {
     @StateObject private var headphoneMotionManager = HeadphoneMotionManager()
     @State private var connectionAttempts = 0
@@ -13,11 +20,16 @@ struct ContentView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 15) {
-                Text("AirPods Pro Head Tracking")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top, 10)
-                
+                HStack {
+                    Text("AirPods Pro Head Tracking")
+                        .font(.title)
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
+                .padding(.top, 10)
+            
                 if headphoneMotionManager.isDeviceConnected {
                     // Visual head tracker
                     HeadVisualization(
@@ -295,12 +307,6 @@ struct OrientationRow: View {
     }
 }
 
-extension Comparable {
-    func clamped(to limits: ClosedRange<Self>) -> Self {
-        return min(max(self, limits.lowerBound), limits.upperBound)
-    }
-}
-
 class HeadphoneMotionManager: ObservableObject {
     private let motionManager = CMHeadphoneMotionManager()
     private var timer: Timer?
@@ -422,3 +428,4 @@ class HeadphoneMotionManager: ObservableObject {
         stop()
     }
 }
+
